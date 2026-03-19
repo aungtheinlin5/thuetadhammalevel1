@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suta Dhamma Diploma - Level 1</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #8e44ad;
+            --accent-gold: #d4af37;
+            --text-main: #2c3e50;
+            --bg-sub: #f8f9fa;
+            --border-color: #eaeaea;
+            --font-my: 'Noto Sans Myanmar', sans-serif;
+        }
+
+        body { font-family: var(--font-my); margin: 0; background-color: #ffffff; color: var(--text-main); overflow-x: hidden; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 15px; }
+        
+        header { border-bottom: 1px solid var(--border-color); padding: 10px 0; background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        
+        .hero { text-align: center; padding: 30px 0; }
+        .level-badge { display: inline-block; background: var(--primary-color); color: white; padding: 4px 15px; border-radius: 20px; font-size: 0.85rem; margin-bottom: 10px; }
+
+        .lesson-list { display: flex; flex-direction: column; gap: 12px; padding-bottom: 40px; }
+        .lesson-card { 
+            background: var(--bg-sub); padding: 18px; border-radius: 12px; 
+            display: flex; align-items: center; gap: 15px; cursor: pointer; 
+            transition: 0.2s; border: 1px solid var(--border-color);
+        }
+        .lesson-card:hover { background: #f0e6f5; border-color: #d1b8e0; transform: translateY(-2px); }
+
+        .hidden { display: none; }
+        .back-btn { background: #eee; border: none; color: #555; cursor: pointer; padding: 10px 20px; border-radius: 25px; font-family: var(--font-my); margin: 10px 0; font-weight: bold; }
+        .back-btn:hover { background: var(--primary-color); color: white; }
+
+        .player-section { background: var(--bg-sub); border-radius: 15px; padding: 15px; }
+        audio { width: 100%; margin: 15px 0; }
+
+        /* PDF Viewer Layout */
+        .pdf-wrapper { 
+            position: relative; 
+            width: 100%; 
+            height: 75vh; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            border: 1px solid var(--border-color); 
+            background: #525659; 
+            margin-top: 15px;
+        }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* ဆရာတော်ပုံတော်အား အဝိုင်းပြုလုပ်ရန် CSS */
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; /* အဝိုင်းပုံစံဖြစ်စေရန် */
+            object-fit: cover; /* ပုံအချိုးအစားမပျက်ဘဲ အဝိုင်းထဲပြည့်စေရန် */
+            border: 2px solid var(--primary-color); /* အဝိုင်းပတ်လည်တွင် အရောင်လေးထည့်ရန် (စိတ်ကြိုက်) */
+        }
+
+        @media (max-width: 600px) {
+            .pdf-wrapper { height: 60vh; }
+            .hero h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container" style="display:flex; align-items:center; gap:12px;">
+            <img src="https://i.ibb.co/rGkFsTkC/Sayadaw-nandamalabhivamsa.jpg" alt="Sayadaw Dr. Nandamalabhivamsa" class="logo-img">
+            <div style="line-height: 1.2;">
+                <strong style="display:block; font-size: 1.1rem;">Suta Dhamma Diploma</strong>
+                <span style="font-size:0.75rem; color:var(--text-sub)">University Of Wisdom Land</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div id="home-page">
+            <section class="hero">
+                <div class="level-badge">Diploma Level - 1</div>
+                <h1 style="margin:0; font-family:'Playfair Display'; color: var(--primary-color);">University Of Wisdom Land</h1>
+                <p style="color:var(--accent-gold); font-size: 1.1rem; margin-top: 8px;">သုတဓမ္မ ဒီပလိုမာ သင်တန်းတော်များ</p>
+            </section>
+            <div class="lesson-list" id="main-list"></div>
+        </div>
+
+        <div id="player-page" class="hidden">
+            <button class="back-btn" onclick="showHome()">← သင်ခန်းစာစာရင်းသို့</button>
+            <h3 id="display-title" style="margin: 10px 0; border-left: 5px solid var(--primary-color); padding-left: 10px;">ခေါင်းစဉ်</h3>
+            
+            <div class="player-section">
+                <audio id="audio-ctrl" controls><source src="" type="audio/mpeg"></audio>
+                
+                <div class="pdf-wrapper">
+                    <iframe id="pdf-viewer" src=""></iframe>
+                </div>
+            </div>
+            <p style="font-size: 0.8rem; color: #888; text-align: center; margin: 15px 0;">
+                စာမျက်နှာများအား အပေါ်အောက် ဆွဲ၍ ဖတ်ရှုနိုင်ပါသည်။
+            </p>
+        </div>
+
+    </main>
+
+    <script>
+        const lessons = [
+            {
+                id: 1,
+                title: "ဘဝခရီးဝယ်ရွေးချယ်ရမည့်လမ်း",
+                audio: "https://dhammadownload.com/MP3Library/University-Of-Wisdom-Land/Diploma-in-Sutadhamma/001-UOWL-Sutadhamma-2007-07-25-bawakhayeewair.mp3",
+                pdf: "https://dhammadownload.com/File-Library/University-Of-Wisdom-Land/Diploma-in-Sutadhamma/UOWL-A4-Book1.pdf"
+            },
+            {
+                id: 2,
+                title: "မေတ္တသုတ်အနှစ်ချုပ်",
+                audio: "https://dhammadownload.com/MP3Library/University-Of-Wisdom-Land/Diploma-in-Sutadhamma/004-UOWL-Sutadhamma-2009-12-20-MettaThoatAhNhitChoke.mp3",
+                pdf: "https://gtg-drnandamala.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2022/01/14023742/%E1%80%99%E1%80%B1%E1%80%90%E1%80%B9%E1%80%90%E1%80%AC%E1%80%9E%E1%80%AF%E1%80%90%E1%80%BA%E1%80%A1%E1%80%94%E1%80%BE%E1%80%85%E1%80%BA%E1%80%81%E1%80%BB%E1%80%AF%E1%80%95%E1%80%BA.pdf"
+            },
+            {
+                id: 3,
+                title: "စိတ်၏အညစ်အကြေးများကို ဖယ်ရှားခြင်း",
+                audio: "https://dhammadownload.com/MP3Library/University-Of-Wisdom-Land/Diploma-in-Sutadhamma/003-UOWL-Sutadhamma-2011-02-13-SateEiAhNyitAhKayeMyar.mp3",
+                pdf: "https://www.universitywisdomland.edu.mm/wp-content/uploads/2022/06/56-Dr-Nandamala-SaitEiAhNyitAhKayeMyarKoPawelSharChin.pdf"
+            },
+            {
+                id: 4,
+                title: "မြတ်ဗုဒ္ဒဒေသနာနှင့်‌ယနေ့ကမ္ဘာ",
+                audio: "https://dhammadownload.com/MP3Library/University-Of-Wisdom-Land/Diploma-in-Sutadhamma/002-UOWL-Sutadhamma-MyatBuddhaNhitYaNaeKabar.mp3",
+                pdf: "https://dhammadownload.com/File-Library/University-Of-Wisdom-Land/Diploma-in-Sutadhamma/UOWL-A4-Book2.pdf"
+            },
+            {
+                id: 5,
+                title: "သမထနှင့် ဝိပဿနာ",
+                audio: "https://dhammadownload.com/MP3Library/University-Of-Wisdom-Land/Diploma-in-Sutadhamma/005-UOWL-Sutadhamma-2008-12-18-samatha-and-vipassana.mp3",
+                pdf: "https://www.universitywisdomland.edu.mm/wp-content/uploads/2022/06/Dr-Nandamalabhivamsa-ThaMaHtaNhintWiPaThaNar-compressed.pdf"
+            }
+        ];
+
+        const listContainer = document.getElementById('main-list');
+        lessons.forEach(lesson => {
+            const card = document.createElement('div');
+            card.className = 'lesson-card';
+            card.innerHTML = `<div style="color:var(--primary-color); font-weight:bold; font-size: 1.2rem;">${lesson.id}</div><div>${lesson.title}</div>`;
+            card.onclick = () => {
+                document.getElementById('home-page').classList.add('hidden');
+                document.getElementById('player-page').classList.remove('hidden');
+                document.getElementById('display-title').innerText = lesson.title;
+                
+                const audio = document.getElementById('audio-ctrl');
+                audio.src = lesson.audio;
+                audio.play();
+
+                // Direct PDF View
+                const pdfViewer = document.getElementById('pdf-viewer');
+                pdfViewer.src = `https://docs.google.com/viewer?url=${encodeURIComponent(lesson.pdf)}&embedded=true`;
+            };
+            listContainer.appendChild(card);
+        });
+
+        function showHome() {
+            document.getElementById('player-page').classList.add('hidden');
+            document.getElementById('home-page').classList.remove('hidden');
+            document.getElementById('audio-ctrl').pause();
+            document.getElementById('pdf-viewer').src = ""; 
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
