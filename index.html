@@ -19,7 +19,6 @@
             --font-my: 'Noto Sans Myanmar', sans-serif;
         }
 
-        /* --- Dark Mode Variables --- */
         [data-theme="dark"] {
             --bg-main: #1a1a1a;
             --bg-sub: #2d2d2d;
@@ -27,7 +26,7 @@
             --border-color: #404040;
         }
 
-        /* --- Splash Screen --- */
+        /* --- Splash Screen (Clean UI) --- */
         #splash-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -35,29 +34,23 @@
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 9999; transition: opacity 0.8s ease, visibility 0.8s;
         }
-        .splash-logo { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent-gold); margin-bottom: 25px; box-shadow: 0 15px 30px rgba(0,0,0,0.3); animation: pulse 2.5s infinite; }
-        .splash-text { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: #ffffff; font-weight: bold; text-align: center; }
-        .splash-sub { color: var(--accent-gold); margin-top: 12px; font-weight: bold; font-size: 1.1rem; }
-
+        .splash-logo { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent-gold); animation: pulse 2.5s infinite; }
+        .splash-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #ffffff; font-weight: bold; margin-top: 25px; }
+        
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
         /* --- Main UI --- */
-        #main-content { opacity: 0; transition: opacity 1s ease; }
+        #main-content { opacity: 0; transition: opacity 1s ease; display: none; }
         body { font-family: var(--font-my); margin: 0; background-color: var(--bg-main); color: var(--text-main); transition: 0.3s; }
         .container { max-width: 900px; margin: 0 auto; padding: 0 15px; }
         
-        header { border-bottom: 1px solid var(--border-color); padding: 10px 0; background: var(--bg-main); position: sticky; top: 0; z-index: 100; transition: 0.3s; }
+        header { border-bottom: 1px solid var(--border-color); padding: 10px 0; background: var(--bg-main); position: sticky; top: 0; z-index: 100; }
         .header-flex { display: flex; justify-content: space-between; align-items: center; }
 
-        /* Dark Mode Toggle Button */
         .theme-toggle {
-            background: var(--bg-sub);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            width: 40px; height: 40px; border-radius: 50%;
-            cursor: pointer; font-size: 1.2rem;
+            background: var(--bg-sub); border: 1px solid var(--border-color); color: var(--text-main);
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;
             display: flex; justify-content: center; align-items: center;
-            transition: 0.3s;
         }
 
         .hero { text-align: center; padding: 30px 0; }
@@ -68,7 +61,7 @@
         .lesson-card:hover { border-color: var(--primary-color); transform: translateY(-2px); }
 
         .hidden { display: none; }
-        .back-btn { background: var(--bg-sub); border: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; padding: 10px 20px; border-radius: 25px; margin: 10px 0; font-weight: bold; font-family: var(--font-my); }
+        .back-btn { background: var(--bg-sub); border: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; padding: 10px 20px; border-radius: 25px; margin: 10px 0; font-weight: bold; }
         
         .player-section { background: var(--bg-sub); border-radius: 15px; padding: 15px; }
         audio { width: 100%; margin: 15px 0; }
@@ -81,10 +74,14 @@
 </head>
 <body>
 
+    <audio id="bg-music" loop>
+        <source src="https://rr4---sn-npoeenl7.googlevideo.com/videoplayback?expire=1773996862&ei=3ra8aa-jLr6DybgPmIOO4QI&ip=99.105.80.80&id=o-ADnOcdYen_esaSstv92LfW5In26qp6tvxsyPAFbOEOyx&itag=140&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&cps=289&bui=AVNa5-zsgEKf-nKiECepzfTy-VJlDSemMNg8INkCLpaaksa4ueKXBqrzvAl_dMETsbB6pmWcBPS9E_e3&spc=6dlaFJijV5C79x_25scOoYQAD0LrLClLxPvC_G8SxvhweKcY9_Soem-pBVp0hvI7FXg6yw&vprv=1&svpuc=1&mime=audio%2Fmp4&ns=DT1vM5ZLxzPflZbT0NsBv8MT&rqh=1&gir=yes&clen=6849206&dur=423.160&lmt=1742631468684538&keepalive=yes&fexp=51565116,51565682,51791334&c=WEB_EMBEDDED_PLAYER&sefc=1&txp=5432534&n=zxI-U9G7BeDiHQ&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Cns%2Crqh%2Cgir%2Cclen%2Cdur%2Clmt&sig=AHEqNM4wRAIgPV731EhOEJrMr1uekMYD8Y0WP7-JeXrXOj0S7VsZ1e0CIGefUQnhuROUb5iz22QfaLzKLBc3U5fvn2P2qEYmURkz&rm=sn-bvvbaxivnuxq5uu-vgqs7l,sn-vgqek77z&rrc=79,104&req_id=c1f70c83b1a1a3ee&cmsv=e&rms=rdu,au&redirect_counter=2&cms_redirect=yes&ipbypass=yes&met=1773975298,&mh=CV&mip=37.111.44.231&mm=29&mn=sn-npoeenl7&ms=rdu&mt=1773975174&mv=m&mvi=4&pl=24&lsparams=cps,ipbypass,met,mh,mip,mm,mn,ms,mv,mvi,pl,rms&lsig=APaTxxMwRQIhANiceIWlf-xATV3AFsjo3nW1hWGjT0R5RudHzt4WCvV-AiBxEfuaQ129ofl0nHXYKpI-D8Upmt0kO0_iXcTc1JsysA%3D%3D" type="audio/mp4">
+    </audio>
+
     <div id="splash-screen">
         <img src="https://i.ibb.co/LDh3jzBD/Sayadaw-nandamalabhivamsa.jpg" alt="Sayadaw" class="splash-logo">
-        <div class="splash-text">University Of Wisdom Land</div>
-        <div class="splash-sub">သုတဓမ္မ ဒီပလိုမာ</div>
+        <div class="splash-title">University Of Wisdom Land</div>
+        <p style="color: var(--accent-gold); margin-top: 10px; font-weight: bold;">သုတဓမ္မ ဒီပလိုမာ</p>
     </div>
 
     <div id="main-content">
@@ -125,16 +122,33 @@
     </div>
 
     <script>
-        // Splash Screen
+        const bgMusic = document.getElementById('bg-music');
+        const lessonAudio = document.getElementById('audio-ctrl');
+
+        // Automatic Transition after 3 seconds
         window.addEventListener('load', () => {
             setTimeout(() => {
-                document.getElementById('splash-screen').style.opacity = '0';
-                document.getElementById('splash-screen').style.visibility = 'hidden';
-                document.getElementById('main-content').style.opacity = '1';
+                const splash = document.getElementById('splash-screen');
+                const content = document.getElementById('main-content');
+                
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    content.style.display = 'block';
+                    setTimeout(() => content.style.opacity = '1', 50);
+                    
+                    // Try to play (will work if user interacted with the page before)
+                    bgMusic.play().catch(() => {
+                        console.log("Waiting for user interaction to play audio.");
+                        // Play on first click anywhere on the page
+                        document.body.addEventListener('click', () => {
+                            bgMusic.play();
+                        }, { once: true });
+                    });
+                }, 800);
             }, 3000);
         });
 
-        // Dark Mode Logic
         function toggleTheme() {
             const body = document.body;
             const btn = document.getElementById('theme-btn');
@@ -164,9 +178,9 @@
                 document.getElementById('home-page').classList.add('hidden');
                 document.getElementById('player-page').classList.remove('hidden');
                 document.getElementById('display-title').innerText = lesson.title;
-                const audio = document.getElementById('audio-ctrl');
-                audio.src = lesson.audio;
-                audio.play();
+                bgMusic.pause();
+                lessonAudio.src = lesson.audio;
+                lessonAudio.play();
                 document.getElementById('pdf-viewer').src = `https://docs.google.com/viewer?url=${encodeURIComponent(lesson.pdf)}&embedded=true`;
             };
             listContainer.appendChild(card);
@@ -175,8 +189,8 @@
         function showHome() {
             document.getElementById('player-page').classList.add('hidden');
             document.getElementById('home-page').classList.remove('hidden');
-            document.getElementById('audio-ctrl').pause();
-            document.getElementById('pdf-viewer').src = ""; 
+            lessonAudio.pause();
+            bgMusic.play();
             window.scrollTo(0, 0);
         }
     </script>
